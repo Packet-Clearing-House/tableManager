@@ -17,7 +17,7 @@ Optional:
 
 ## Installation 
 
-While you're welcome to use code from the examples area, the tl;dr is to [download the latest release](https://github.com/Packet-Clearing-House/tableManager/releases/latest) and extract the tableManager.php.  See "Methods" below for how to use.
+While you're welcome to use code from the examples area, the tl;dr is to [download the latest release](https://github.com/Packet-Clearing-House/tableManager/releases/latest) and extract the ``tableManager.php`` file.  See "Methods" below for how to use.
 
 Please note that all ``tableManager`` calls may throw an error, including the constructor.  Be sure to wrap all your calls in a ``try{}catch(Exception $e){}``
 
