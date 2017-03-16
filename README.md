@@ -37,7 +37,7 @@ To get all the rows from a table use the ``getRowsFromTable()`` method.  This wi
 $rowsArray = $tm->getRowsFromTable();
 ```
 
-To show the rows you just retrieved, call ``getHtmlFromRows()`` and pass in the rows from ``getRowsFromTable()`` as well as the URI where to edit a row.  The second parameter will depend on your implementation, but the ID of the row will be appended to a query string.  It's handy to use the $tm->table member variable here:
+To show the rows you just retrieved, call ``getHtmlFromRows()`` and pass in the rows from ``getRowsFromTable()`` as well as the URI where to edit a row.  The second parameter will depend on your implementation, but the ID of the row will be appended to a query string.  It's handy to use the ``$tm->table`` member variable here:
 
 ```php
 print $tm->getHtmlFromRows($rowsArray, "/edit?table={$tm->table}&id=");
