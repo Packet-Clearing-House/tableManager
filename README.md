@@ -21,6 +21,21 @@ Optional:
 * [formvalidation.io](http://formvalidation.io)
 * [bootsrap](http://getbootstrap.com/)
 
+## Examples
+
+The example images shown here are taken from the ``examples`` directory which has a functional PHP app using the ``tableManager`` class:
+
+### List Rows
+
+Customizable, sortable table with click to edit links for each row:
+
+![](./examples/rows.png)
+
+### Edit Form
+
+Dynamic edit form based on table schema including error handling:
+
+![](./examples/edit.png)
 
 ## Installation 
 
@@ -33,7 +48,7 @@ wrap all your calls in a ``try{}catch(Exception $e){}``
 
 ## Methods
 
-This is the most simple calls to the methods.  See the examples section for more complex calls.
+This is the most simple calls to the methods.  See the [examples](https://github.com/Packet-Clearing-House/tableManager/tree/add-examples/examples) section and [phpdocs](https://github.com/Packet-Clearing-House/tableManager/tree/add-examples/phpdoc) for details on all calls.
 
 You need to instantiate the class with valid parameters to set up a database handle. TYPE and PORT default 
 to 'mysql' and 3306 respectively: 
@@ -87,12 +102,9 @@ if ($_POST[$action] == 'delete') {
 }
 ```
 
-## Examples
-
-TBD
-
 ## Release history
 
+* 1.1 - Mar 16th, 2017 - Add Examples & phpDocs, fixed minor bug in edit form CSS
 * 1.0 - Mar 15th, 2017 - First post
 
 ## License 
