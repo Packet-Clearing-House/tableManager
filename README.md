@@ -33,7 +33,7 @@ wrap all your calls in a ``try{}catch(Exception $e){}``
 
 ## Methods
 
-This is the most simple calls to the methods.  See the examples section for more complex calls.
+This is the most simple calls to the methods.  See the examples section and phpdocs for details on all calls.
 
 You need to instantiate the class with valid parameters to set up a database handle. TYPE and PORT default 
 to 'mysql' and 3306 respectively: 
