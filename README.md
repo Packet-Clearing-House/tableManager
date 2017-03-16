@@ -21,6 +21,21 @@ Optional:
 * [formvalidation.io](http://formvalidation.io)
 * [bootsrap](http://getbootstrap.com/)
 
+## Examples
+
+The example images shown here are taken from the ``examples`` directory which has a functional PHP app using the ``tableManager`` class:
+
+### List Rows
+
+Customizable, sortable table with click to edit links for each row:
+
+![](./examples/rows.png)
+
+### Edit Form
+
+Dynamic edit form based on table schema including error handling:
+
+![](./examples/edit.png)
 
 ## Installation 
 
@@ -86,25 +101,6 @@ if ($_POST[$action] == 'delete') {
     $tm->create($_POST);
 }
 ```
-
-## Examples
-
-The example images shown here are taken from the ``examples`` directory which has a functional PHP app using the ``tableManager`` class:
-
-
-![](./examples/rows.png)
-
-### List Rows
-
-Customizable, sortable table with click to edit links for each row:
-
-
-![](./examples/edit.png)
-
-
-### Edit Form
-
-Dynamic edit form based on table schema including error handling:
 
 ## Release history
 
