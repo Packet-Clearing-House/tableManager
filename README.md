@@ -104,7 +104,7 @@ if ($_POST[$action] == 'delete') {
 
 ## Release history
 
-* 1.1 - Mar 16th, 2017 - Added Examples, fixed minor bug in edit form CSS
+* 1.1 - Mar 16th, 2017 - Add Examples & phpDocs, fixed minor bug in edit form CSS
 * 1.0 - Mar 15th, 2017 - First post
 
 ## License 
