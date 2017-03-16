@@ -1,0 +1,35 @@
+.table {
+    width: 600px;
+}
+.form-group {
+    width:100%;
+}
+th, td {
+    padding: 5px 10px;
+    border: 1px solid #999;
+}
+th {
+    background-color: #eee;
+}
+th[data-sort]{
+    cursor:pointer;
+}
+.sorting-asc {
+    background-image: url('./up.png');
+    background-repeat: no-repeat;
+    background-attachment: inherit;
+    background-position: center;
+    background-size: 17px;
+    background-position-x: 98px;
+}
+.sorting-desc {
+    background-image: url('./down.png');
+    background-repeat: no-repeat;
+    background-attachment: inherit;
+    background-position: center;
+    background-size: 30px;
+    background-position-x: 90px;
+}
+.sorting-desc, .sorting-asc{
+    background-color: #ddd;
+}

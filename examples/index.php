@@ -29,8 +29,8 @@
 </p>
 
 <ul>
-    <li><a href="list_rows_with_links_sortable.php">List rows, Edit links, Styles and Sortable</a>
-    <li><a href="editf.php?id=1">Edit Row</a> - With formvalidation.io</li>
+    <li><a href="list_rows_with_links_sortable.php">List rows, Edit links, Styles and Sortable</a> - use stupidtable to allow client side sorting and few lines of JS to pretty up the table
+    <li><a href="edit_validate.php?id=1">Edit Row</a> - With formvalidation.io to dynamically enforce db rules cleint side and adding a "are you sure?" prompt when you click delete.</li>
 </ul>
 
 
@@ -41,6 +41,6 @@
 </P>
 
 <ul>
-    <li><a href="list_rows_with_links_sortable.php">List rows, Edit links, Styles and Sortable</a>
-    <li><a href="edit.php?id=1">Edit Row</a> - With formvalidation.io</li>
+    <li><a href="list_rows_with_links_bootstrap.php">List rows, Edit links, Styles and Sortable</a> - Same as before but with bootstrap JS/CSS
+    <li><a href="edit_bootstrap.php?id=1">Edit Row</a> - Same as before but with formvalidation's bootstrap css</li>
 </ul>

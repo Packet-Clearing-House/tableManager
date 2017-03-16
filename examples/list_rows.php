@@ -1,3 +1,4 @@
+<p><a href="./">Sample Home</a></p>
 <?php
 
 require_once ("../tableManager.php");

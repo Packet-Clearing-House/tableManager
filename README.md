@@ -89,10 +89,26 @@ if ($_POST[$action] == 'delete') {
 
 ## Examples
 
-TBD
+The example images shown here are taken from the ``examples`` directory which has a functional PHP app using the ``tableManager`` class:
+
+
+![](./examples/rows.png)
+
+### List Rows
+
+Customizable, sortable table with click to edit links for each row:
+
+
+![](./examples/edit.png)
+
+
+### Edit Form
+
+Dynamic edit form based on table schema including error handling:
 
 ## Release history
 
+* 1.1 - Mar 16th, 2017 - Added Examples, fixed minor bug in edit form CSS
 * 1.0 - Mar 15th, 2017 - First post
 
 ## License 

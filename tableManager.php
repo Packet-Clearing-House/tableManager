@@ -3,7 +3,7 @@
  * Class tableManager
  *
  * @author mrjones@pch.net
- * @version 1.0
+ * @version 1.1
  * @copyright PCH, MIT License
  */
 
@@ -417,7 +417,7 @@ class tableManager {
                 $html .= "<input name='$colName' value='$value' id='$colName' type='text'  class='form-control $primaryClass'
                     maxlength='{$columnInfoArray['SIMPLE_SIZE']}' $requiredHtml $kvPairHtml/>\n";
             } elseif ($colType == 'text') {
-                $html .= "<textarea name='$colName' id='$colName' class='$primaryClass' maxlength='{$columnInfoArray['SIMPLE_SIZE']}' 
+                $html .= "<textarea name='$colName' id='$colName' class='form-control $primaryClass' maxlength='{$columnInfoArray['SIMPLE_SIZE']}' 
                     $requiredHtml $kvPairHtml/>$value</textarea>\n";
             } elseif ($colType == 'char') {
                 $html .= "<input name='$colName' value='$value' id='$colName' type='text'  

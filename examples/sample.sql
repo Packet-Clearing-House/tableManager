@@ -1,7 +1,7 @@
 
-CREATE DATABASE tableManagerSample;
+CREATE DATABASE IF NOT EXISTS tableManagerSample;
 
-CREATE TABLE tableManagerSample.people
+CREATE TABLE IF NOT EXISTS tableManagerSample.people
 (
   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   first VARCHAR(255) NOT NULL,
@@ -10,8 +10,8 @@ CREATE TABLE tableManagerSample.people
   sex ENUM('Agender', 'Androgyne', 'Androgynous', 'Bigender', 'Cis', 'Cisgender', 'Cis Female', 'Cis Male', 'Cis Man', 'Cis Woman', 'Cisgender Female', 'Cisgender Male', 'Cisgender Man', 'Cisgender Woman', 'Female to Male', 'FTM', 'Gender Fluid', 'Gender Nonconforming', 'Gender Questioning', 'Gender Variant', 'Genderqueer', 'Intersex', 'Male to Female', 'MTF', 'Neither', 'Neutrois', 'Non-binary', 'Other', 'Pangender', 'Trans', 'Trans*', 'Trans Female', 'Trans* Female', 'Trans Male', 'Trans* Male', 'Trans Man', 'Trans* Man', 'Trans Person', 'Trans* Person', 'Trans Woman', 'Trans* Woman', 'Transfeminine', 'Transgender', 'Transgender Female', 'Transgender Male', 'Transgender Man', 'Transgender Person', 'Transgender Woman', 'Transmasculine', 'Transsexual', 'Transsexual Female', 'Transsexual Male', 'Transsexual Man', 'Transsexual Person', 'Transsexual Woman', 'Two-Spirit') NOT NULL,
   comment TEXT
 );
-CREATE UNIQUE INDEX people_id_uindex ON tableManagerSample.people (id);
-ALTER TABLE tableManagerSample.people COMMENT = 'thanks facebook!';-- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
+ALTER TABLE tableManagerSample.people ADD INDEX (id);
+-- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
 --
 -- Host: localhost    Database: tableManagerSample
 -- ------------------------------------------------------
@@ -31,7 +31,8 @@ ALTER TABLE tableManagerSample.people COMMENT = 'thanks facebook!';-- MySQL dump
 --
 -- Dumping data for table `people`
 --
-
+use tableManagerSample;
+truncate table people;
 LOCK TABLES `people` WRITE;
 /*!40000 ALTER TABLE `people` DISABLE KEYS */;
 INSERT INTO `people` VALUES (1,'','Doe',56,'Cis','Is john doe.'),(2,'Jane','Doe',2,'Bigender','Jane rocks!'),(3,'Zhang','Wei',82,'Cis',''),(4,'Zhang','Xiu Ying',82,'Gender Fluid',''),(5,'Mohamed','EL-HASHEM',34,'Trans* Female',''),(6,'Meyer','NEJEM',18,'Trans* Man',''),(7,'Abir','Chatterjee',48,'Gender Questioning','');

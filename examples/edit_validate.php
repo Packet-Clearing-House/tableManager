@@ -1,3 +1,8 @@
+<p><a href="./">Sample Home</a></p>
+<script src="./libs/jquery.js"></script>
+<script src="./libs/formvalidation.js"></script>
+<script src="./libs/formvalidation-bootstrap.js"></script>
+
 <?php
 
 require_once ("../tableManager.php");
@@ -14,15 +19,13 @@ try {
         $action = 'add';
     }
 
-    print $tm->getAddEditHtml($row, $action, "./save.php?table={$tm->table}");
+    print $tm->getAddEditHtml($row, $action, "./save_validate.php?table={$tm->table}", false, array(), array(), true);
 } catch (Exception $e){
     show503($e->getMessage());
 }
 
 ?>
 
-<script src="./libs/jquery.js"></script>
-<script src="./libs/formvalidation.js"></script>
 <hr/>
 
 <P>

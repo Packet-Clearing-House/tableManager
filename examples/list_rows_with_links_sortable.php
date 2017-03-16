@@ -1,3 +1,4 @@
+<p><a href="./">Sample Home</a></p>
 <p>
     Click column headers to sort by that column:
 </p>
@@ -24,9 +25,7 @@ try {
 <script src="./libs/jquery.js"></script>
 <script src="./libs/stupidtable.js"></script>
 <link rel="stylesheet" href="./libs/simple.css">
-<script>
-    $("table").stupidtable();
-</script>
+<script>$("table").stupidtable();</script>
 
 <hr/>
 
@@ -59,9 +58,7 @@ try {
 <span style='color:#808030; '>&lt;</span>script src<span style='color:#808030; '>=</span><span style='color:#0000e6; '>"./libs/jquery.js"</span><span style='color:#808030; '>></span><span style='color:#808030; '>&lt;</span><span style='color:#808030; '>/</span>script<span style='color:#808030; '>></span>
 <span style='color:#808030; '>&lt;</span>script src<span style='color:#808030; '>=</span><span style='color:#0000e6; '>"./libs/stupidtable.js"</span><span style='color:#808030; '>></span><span style='color:#808030; '>&lt;</span><span style='color:#808030; '>/</span>script<span style='color:#808030; '>></span>
 <span style='color:#808030; '>&lt;</span>link rel<span style='color:#808030; '>=</span><span style='color:#0000e6; '>"stylesheet"</span> href<span style='color:#808030; '>=</span><span style='color:#0000e6; '>"./libs/simple.css"</span><span style='color:#808030; '>></span>
-<span style='color:#808030; '>&lt;</span>script<span style='color:#808030; '>></span>
-    $<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"table"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>stupidtable<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>;</span>
-<span style='color:#808030; '>&lt;</span><span style='color:#808030; '>/</span>script<span style='color:#808030; '>></span>
+<span style='color:#808030; '>&lt;</span>script<span style='color:#808030; '>></span>$<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"table"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>stupidtable<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>;</span><span style='color:#808030; '>&lt;</span><span style='color:#808030; '>/</span>script<span style='color:#808030; '>></span>
 </pre>
 
 
