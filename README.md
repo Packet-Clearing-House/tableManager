@@ -48,7 +48,7 @@ wrap all your calls in a ``try{}catch(Exception $e){}``
 
 ## Methods
 
-This is the most simple calls to the methods.  See the examples section and phpdocs for details on all calls.
+This is the most simple calls to the methods.  See the [examples](https://github.com/Packet-Clearing-House/tableManager/tree/add-examples/examples) section and [phpdocs](https://github.com/Packet-Clearing-House/tableManager/tree/add-examples/phpdoc) for details on all calls.
 
 You need to instantiate the class with valid parameters to set up a database handle. TYPE and PORT default 
 to 'mysql' and 3306 respectively: 
