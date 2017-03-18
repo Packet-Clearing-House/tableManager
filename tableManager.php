@@ -3,8 +3,9 @@
  * Class tableManager
  *
  * @author mrjones@pch.net
- * @version 1.1
+ * @version 1.2
  * @copyright PCH, MIT License
+ * @see https://github.com/Packet-Clearing-House/tableManager/
  */
 
 /**

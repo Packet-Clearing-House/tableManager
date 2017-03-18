@@ -107,6 +107,7 @@ if ($_POST[$action] == 'delete') {
 
 ## Release history
 
+* 1.2 - Mar 18th, 2017 - Add protection against [CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF))
 * 1.1 - Mar 16th, 2017 - Add Examples & phpDocs, fixed minor bug in edit form CSS
 * 1.0 - Mar 15th, 2017 - First post
 
