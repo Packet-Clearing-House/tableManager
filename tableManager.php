@@ -3,8 +3,9 @@
  * Class tableManager
  *
  * @author mrjones@pch.net
- * @version 1.1
+ * @version 1.2
  * @copyright PCH, MIT License
+ * @see https://github.com/Packet-Clearing-House/tableManager/
  */
 
 /**
@@ -44,6 +45,8 @@ class tableManager {
     var $schema;
     /** @var string table to use, bust existing in db */
     var $table;
+    /** @var string key to ID the nonce in cookies and posts */
+    var $nonceKey;
 
     /**
      * tableManager constructor - establishes a connection to a database and a specific table
@@ -67,7 +70,9 @@ class tableManager {
         $this->username = $username;
         $this->db = $this->getDbHandle($this->database);
         $this->mysqlDb = $this->getDbHandle('information_schema');
-        $this->tm_key = 'tableManager_key_473294728947';
+        // use something that hopefully won't ever exist as a field name in a db ;)
+        $this->tm_key = 'tableManager_key_473';
+        $this->nonceKey = 'tableManager_nonce_261';
         if ($this->validateTableName($table)){
             $this->table = $table;
             $this->schema = $this->getTableSchema();
@@ -99,7 +104,7 @@ class tableManager {
         } else {
             if (is_array($rowsToFetchArray) && sizeof($rowsToFetchArray) > 0 &&
                 $this->validateTableColumns($rowsToFetchArray)){
-                    $rowsToFetch = implode(", ", $rowsToFetchArray);
+                $rowsToFetch = implode(", ", $rowsToFetchArray);
             } else {
                 $rowsToFetch = '*';
             }
@@ -145,7 +150,7 @@ class tableManager {
      * @return bool success or failure if invalid params passed
      */
     public function delete($values, $tableKey = false){
-        if (!isset($values[$this->tm_key])){
+        if (!isset($values[$this->tm_key]) || !$this->validNonce()){
             return false;
         } else {
             if (!$tableKey){
@@ -167,7 +172,7 @@ class tableManager {
      * @return bool
      */
     public function update($values, $tableKey = false){
-        if (!isset($values[$this->tm_key])){
+        if (!isset($values[$this->tm_key])|| !$this->validNonce()){
             return false;
         } else {
             if (!$tableKey){
@@ -201,19 +206,23 @@ class tableManager {
      * @return bool success or failure if invalid params passed
      */
     public function create($values){
-        $values = $this->cleanseValuesAgainstSchema($values);
-        $queryString = "INSERT INTO " . $this->table . " (`";
-        $queryString .= implode("`,`", array_keys($values));
-        $queryString .= "`) VALUES (:";
-        $queryString .= implode(", :", array_keys($values));
-        $queryString .= ");";
+        if ($this->validNonce()){
+            $values = $this->cleanseValuesAgainstSchema($values);
+            $queryString = "INSERT INTO " . $this->table . " (`";
+            $queryString .= implode("`,`", array_keys($values));
+            $queryString .= "`) VALUES (:";
+            $queryString .= implode(", :", array_keys($values));
+            $queryString .= ");";
 
-        $query = $this->db->prepare($queryString);
-        foreach (array_keys($values) as $key){
-            $query->bindValue(":$key", $values[$key], PDO::PARAM_STR);
+            $query = $this->db->prepare($queryString);
+            foreach (array_keys($values) as $key) {
+                $query->bindValue(":$key", $values[$key], PDO::PARAM_STR);
+            }
+            $query->execute();
+            return true;
+        } else {
+            return false;
         }
-        $query->execute();
-        return true;
     }
 
     /**
@@ -318,6 +327,9 @@ class tableManager {
 
     /**
      * Get the HTML to render an add or edit form
+     *
+     * NOTE: This function sets a cookie to fight CSRF (https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF))
+     *
      * @param array $rowData multi-dimensional array from $this->getRowFromTable() to prepoluate
      *      form when editing an existing row
      * @param string $action defaults to 'edit', can be 'add' or 'delete'
@@ -333,8 +345,8 @@ class tableManager {
      * @return string HTML of edit form
      */
     public function getAddEditHtml($rowData = array(),  $action = 'edit' , $actionUrl = null,
-               $tableKey = false, $rowsLabels = array(), $customEditArray = array(), $keyExistsUrl = null,
-                $customOrder = array())
+                                   $tableKey = false, $rowsLabels = array(), $customEditArray = array(), $keyExistsUrl = null,
+                                   $customOrder = array())
     {
         if (!$tableKey){
             $tableKey = $this->getKeyFromTable();
@@ -342,6 +354,11 @@ class tableManager {
         if(sizeof($customOrder) == 0){
             $customOrder = $this->schema;
         }
+
+        // get a nonce, write it to a cookie and then create a hidden input
+        // which we'll check on add, edit or delete
+        $nonce = $this->getRandomId();
+        $this->writeNonceCookie($nonce);
 
         $formAction = '<form role="form" method="post" action="' . $actionUrl . '" name="tableManagerAddEdit"
             class="tableManager"
@@ -352,7 +369,8 @@ class tableManager {
             data-fv-icon-validating="glyphicon glyphicon-refresh">' ."\n";
 
         $html = $formAction;
-        $html .= '<input type="hidden" value="' . $action . '" id="'. $this->tm_key . '_action" name="'. $this->tm_key . '_action"/>';
+        $html .= '<input type="hidden" value="' . $action . '" id="'. $this->tm_key . '_action" name="'. $this->tm_key . '_action"/>'."\n";
+        $html .= $this->getNonceFormInput($nonce);
         foreach ($customOrder as $columnInfoArray){
             $colName = $columnInfoArray['COLUMN_NAME'];
             $colType = $columnInfoArray['DATA_TYPE'];
@@ -447,9 +465,10 @@ class tableManager {
         $html .= '</form>';
         if($action == 'edit' && isset($rowData[$tableKey])) {
             $html .= $formAction;
-            $html .= '<button type="submit" id=""  value="delete" class="btn btn-danger pull-left" >Delete</i></button>';
+            $html .= $this->getNonceFormInput($nonce);
+            $html .= '<button type="submit" id=""  value="delete" class="btn btn-danger pull-left" >Delete</i></button>'."\n";
             $html .= "\n<input id='{$this->tm_key}' name='{$this->tm_key}' value='$hiddenOldKey' type='hidden' />\n";
-            $html .= '<input type="hidden" value="delete" id="'. $this->tm_key . '_action" name="'. $this->tm_key . '_action"/>';
+            $html .= '<input type="hidden" value="delete" id="'. $this->tm_key . '_action" name="'. $this->tm_key . '_action"/>'."\n";
             ;
             $html .= '</form>';
         }
@@ -714,7 +733,7 @@ class tableManager {
      * @return string clean
      */
     private function cleanse($string){
-       return htmlspecialchars($string , ENT_QUOTES, 'UTF-8');
+        return htmlspecialchars($string , ENT_QUOTES, 'UTF-8');
     }
 
     /**
@@ -732,5 +751,68 @@ class tableManager {
             ));
         $dbh->exec("set time_zone = '+00:00';");
         return $dbh;
+    }
+
+    /**
+     * Generate a random ID - good for use in in a session cookie or a URL parameter
+     * in password reset
+     * @param integer $length defaults to 50 - length of random ID
+     * @return string 50 chars of openssl_random_pseudo_bytes()
+     */
+    private function getRandomId($length = 40){
+        $secure = true;
+        $dataBin = openssl_random_pseudo_bytes($length, $secure);
+        return bin2hex($dataBin);
+    }
+
+    /**
+     * look in the passed POST and COOKIE arrays for the $this->nonceKey and make sure they match.
+     * value checked is in cookie array is $_COOKIE[$this->nonceKey + $nonce] where we derive the
+     * $nonce from $POST[$this->nonceKey]. a little cyclical, but allows for N instances of the
+     * same form in the same browser without inadvertent invalidation. should be written
+     * with writeNonceCookie()
+     * @param array $post defaults to $_POST
+     * @param array $cookie defaults to $_COOKIE
+     * @return bool
+     */
+    private function validNonce($cookie = null, $post = null){
+        if($cookie === null){
+            $cookie = $_COOKIE;
+        }
+        if($post === null){
+            $post = $_POST;
+        }
+        $result = false;
+        if (isset($post[$this->nonceKey]) &&
+            isset($cookie[$this->nonceKey . $post[$this->nonceKey]] ) &&
+            $post[$this->nonceKey] == $cookie[$this->nonceKey . $post[$this->nonceKey]]){
+            $result = true;
+        }
+
+        if ($result === false){
+            error_log('WARNING tableManager received an invalid nonce. Update, Insert or Delete failed.');
+        }
+        return $result;
+    }
+
+    /**
+     * standard way to write nonce to cookie valid for 5 minutes. we write
+     * the key of the cookie as "NONCE_KEY + $nonce" so we donate invalidate
+     * multiple instances of the same form in the same browser. should be checked
+     * with isFromNonce()
+     * @param $nonce
+     * @return boolean result of setcookie()
+     */
+    public function writeNonceCookie($nonce) {
+        $secure = true;
+        $http_only = true;
+        // omg epic thread here of SERVER_NAME vs HTTP_HOST: http://stackoverflow.com/a/2297421
+        $domain = $_SERVER['SERVER_NAME'];
+        return setcookie($this->nonceKey . $nonce, $nonce, time() + 300, "/", $domain, $secure, $http_only);
+    }
+
+    private function getNonceFormInput($nonce){
+        $name = $this->nonceKey ;
+        return "<input type='hidden' value='$nonce' name='$name' />\n";
     }
 }
