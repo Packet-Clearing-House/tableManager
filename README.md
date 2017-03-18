@@ -10,7 +10,8 @@ while it use [PDO](http://php.net/manual/en/pdo.installation.php),  it is untest
 Finally, for the best user experience, I recommend using all of the libraries in the optional section below 
 (stupidtable, formvalidation.io and bootstrap).
 
-tableManager uses extensive protection to ensure there's no MySQL injection vectors through this library.
+tableManager uses extensive protection to ensure there's no MySQL injection vectors through this library. As
+well, it uses high entropy nonces to protect against cross site request forgery.
 
 ## Requirements
 *  MySQL 5.02 or greater for [INFORMATION_SCHEMA](https://dev.mysql.com/doc/refman/5.7/en/information-schema.html)  support
@@ -79,6 +80,8 @@ in ``null``, ``add`` and the action for adding a row:
 ```php
 print $tm->getAddEditHtml(null, 'add', "/save?table={$this->table}");
 ```
+
+Note - The ``getAddEditHtml()`` sets a cookie. Please be aware of this if you're not expecting it!
 
 Or, use ``getRowFromTable()`` to prefetch a row when you're editing a row.  This will pre-
 populate the form with the data from ``$row``:
