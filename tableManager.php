@@ -3,7 +3,7 @@
  * Class tableManager
  *
  * @author mrjones@pch.net
- * @version 1.2
+ * @version 1.3
  * @copyright PCH, MIT License
  * @see https://github.com/Packet-Clearing-House/tableManager/
  */
@@ -346,7 +346,7 @@ class tableManager {
      */
     public function getAddEditHtml($rowData = array(),  $action = 'edit' , $actionUrl = null,
                                    $tableKey = false, $rowsLabels = array(), $customEditArray = array(), $keyExistsUrl = null,
-                                   $customOrder = array())
+                                   $customOrder = array(), $secureCookie = true)
     {
         if (!$tableKey){
             $tableKey = $this->getKeyFromTable();
@@ -358,7 +358,7 @@ class tableManager {
         // get a nonce, write it to a cookie and then create a hidden input
         // which we'll check on add, edit or delete
         $nonce = $this->getRandomId();
-        $this->writeNonceCookie($nonce);
+        $this->writeNonceCookie($nonce, $secureCookie);
 
         $formAction = '<form role="form" method="post" action="' . $actionUrl . '" name="tableManagerAddEdit"
             class="tableManager"
@@ -446,6 +446,7 @@ class tableManager {
             } elseif ($colType == 'enum') {
                 $html .= "<select name='$colName' value='$value' id='$colName' class='form-control $primaryClass' 
                     $requiredHtml $kvPairHtml>\n";
+                asort($columnInfoArray['SIMPLE_VALUES']);
                 foreach ($columnInfoArray['SIMPLE_VALUES'] as $key => $option){
                     $selected = '';
                     if ($key == $value){
@@ -801,10 +802,17 @@ class tableManager {
      * multiple instances of the same form in the same browser. should be checked
      * with isFromNonce()
      * @param $nonce
+     * @param $secureCookie boolean defaults to true, of whether to write cookies securely (https only). Only set this
+     * to false in development, *never* in production!!
      * @return boolean result of setcookie()
      */
-    public function writeNonceCookie($nonce) {
-        $secure = true;
+    public function writeNonceCookie($nonce, $secureCookie = true) {
+        if ($secureCookie) {
+            $secure = true;
+        } else {
+            $secure = false;
+        }
+
         $http_only = true;
         // omg epic thread here of SERVER_NAME vs HTTP_HOST: http://stackoverflow.com/a/2297421
         $domain = $_SERVER['SERVER_NAME'];

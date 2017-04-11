@@ -5,13 +5,23 @@ more complicated than tableManager.  If you're looking for a framework to easily
 Read, Update and Delete (C.R.U.D.) rows from a MySQL database using a PHP server and a web front end, this 
 tool is what you've always been looking for.
 
-For version 1.0, tableManager niavely assumes that each table has a single field primary key.  As well, 
+For version 1.3, tableManager niavely assumes that each table has a single field primary key.  As well, 
 while it use [PDO](http://php.net/manual/en/pdo.installation.php),  it is untested on anything but MySQL. 
 Finally, for the best user experience, I recommend using all of the libraries in the optional section below 
 (stupidtable, formvalidation.io and bootstrap).
 
-tableManager uses extensive protection to ensure there's no MySQL injection vectors through this library. As
-well, it uses high entropy nonces to protect against cross site request forgery.
+
+### Security
+
+tableManager uses extensive protection to ensure there's no MySQL injection vectors through this library. It protects against cross site request forgery. All cookies are written to be SSL only and are http only. Finally, all output us cleansed to ensure there's no cross site scripting vectors.
+
+To cite OWASP, tableManager does the following:
+
+* [Sanitize database output](https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet#RULE_.236_-_Sanitize_HTML_Markup_with_a_Library_Designed_for_the_Job)
+* [Query Parameterization](https://www.owasp.org/index.php/Query_Parameterization_Cheat_Sheet)
+* [Secure Cookies](https://www.owasp.org/index.php/SecureFlag)
+* [HTTP Only Cookies](https://www.owasp.org/index.php/HttpOnly)
+* [Anti-CSRF Nonces](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet)
 
 ## Requirements
 *  MySQL 5.02 or greater for [INFORMATION_SCHEMA](https://dev.mysql.com/doc/refman/5.7/en/information-schema.html)  support
@@ -105,8 +115,26 @@ if ($_POST[$action] == 'delete') {
 }
 ```
 
+## Development
+
+Pull requests are always welcome! 
+
+Please ensure your code has no warnings in the error log.  Also, do as I do, which is: 
+
+1. ``cd``ing into the ``examples`` directory 
+1. running a web server via ``php -S  localhost:8000``
+1. cut a new branch for my changes
+1. edit ``tableManager.php`` and ensure there's a working example which tests my change
+1. update readme.md if needed
+1. opening a pull request for my change
+1. code review/QA pull request
+1. merge to master
+
+
+
 ## Release history
 
+* 1.3 - Apr 11th, 2017 - Update security docs per #5, add way to do development with non-ssl per #6, add sort to enum/drop downs per #7
 * 1.2 - Mar 18th, 2017 - Add protection against [CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF))
 * 1.1 - Mar 16th, 2017 - Add Examples & phpDocs, fixed minor bug in edit form CSS
 * 1.0 - Mar 15th, 2017 - First post
