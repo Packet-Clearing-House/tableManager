@@ -15,7 +15,8 @@ try {
         $action = 'add';
     }
 
-    print $tm->getAddEditHtml($row, $action, "./save.php?table={$tm->table}");
+    print $tm->getAddEditHtml($row, $action, "./save.php?table={$tm->table}", false, array(),
+        array(),null, array(),SECURE_NONCE_COOKIE);
 } catch (Exception $e){
     show503($e->getMessage());
 }

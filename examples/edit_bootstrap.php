@@ -14,7 +14,7 @@ try {
         $action = 'add';
     }
 
-    $formHtml = $tm->getAddEditHtml($row, $action, "./save_bootstrap.php?table={$tm->table}", false, array(), array(), true);
+    $formHtml = $tm->getAddEditHtml($row, $action, "./save_bootstrap.php?table={$tm->table}", false, array(), array(), true, array(),SECURE_NONCE_COOKIE);
 } catch (Exception $e){
     show503($e->getMessage());
 }

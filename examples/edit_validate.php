@@ -19,7 +19,7 @@ try {
         $action = 'add';
     }
 
-    print $tm->getAddEditHtml($row, $action, "./save_validate.php?table={$tm->table}", false, array(), array(), true);
+    print $tm->getAddEditHtml($row, $action, "./save_validate.php?table={$tm->table}", false, array(), array(), true, array(), SECURE_NONCE_COOKIE);
 } catch (Exception $e){
     show503($e->getMessage());
 }
