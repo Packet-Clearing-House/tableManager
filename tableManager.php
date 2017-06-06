@@ -288,13 +288,13 @@ class tableManager {
                 // get column value, checking for first column to add link
                 if ($link && $column === 0 && isset($row[$tableKey])){
                     // make sure we have something to link to
-                    if (!isset($row[$key]) || $row[$key] == ''){
+                    if (empty($row[$key])){
                         $linkColumnValue = '<em>Empty</em>';
                     } else {
                         $linkColumnValue = $this->cleanse($row[$key]);
                     }
                     $columnValue = "<a href='{$link}{$row[$tableKey]}'>$linkColumnValue</a>";
-                } elseif (isset($row[$key])) {
+                } elseif (!empty($row[$key])) {
                     $columnValue =  $this->cleanse($row[$key]);
                 } else {
                     $columnValue =  '<em>Empty</em>';
