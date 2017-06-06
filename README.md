@@ -1,21 +1,21 @@
 # tableManager
-tableManager is an easy to use PHP library to create a web GUI for handling database CRUD for MySQL. 
+
+tableManager is an easy to use PHP library that provides a web GUI for handling database CRUD for MySQL. 
 While the canonical MySQL web GUI is [phpMyAdmin](https://www.phpmyadmin.net/), it is substantially 
-more complicated than tableManager.  If you're looking for a framework to easily implement a way to Create, 
-Read, Update and Delete (C.R.U.D.) rows from a MySQL database using a PHP server and a web front end, this 
+more complicated than tableManager. If you're looking for a simple framework that allows you to Create, 
+Read, Update and Delete (C.R.U.D.) rows in a MySQL database using a PHP server and a web front end, this 
 tool is what you've always been looking for.
 
-For version 1.3, tableManager niavely assumes that each table has a single field primary key.  As well, 
-while it use [PDO](http://php.net/manual/en/pdo.installation.php),  it is untested on anything but MySQL. 
-Finally, for the best user experience, I recommend using all of the libraries in the optional section below 
-(stupidtable, formvalidation.io and bootstrap).
+For version 1.3, tableManager naively assumes that each table has a single column primary key. Also, 
+while it uses [PDO](http://php.net/manual/en/pdo.installation.php), it is not tested against anything but MySQL. 
 
+tableManager has built-in support for the libraries listed in the optional section below (stupidtable, formvalidation.io and bootstrap) but it should be easy to use it with other tools and frameworks.
 
 ### Security
 
-tableManager uses extensive protection to ensure there's no MySQL injection vectors through this library. It protects against cross site request forgery. All cookies are written to be SSL only and are http only. Finally, all output us cleansed to ensure there's no cross site scripting vectors.
+tableManager uses extensive protection to ensure there are no MySQL injection vectors in the library. It protects against cross site request forgery. All cookies are written to be SSL-only and http-only. Finally, all output is cleansed to ensure there are no cross site scripting vectors.
 
-To cite OWASP, tableManager does the following:
+Following OWASP best practices, tableManager does the following:
 
 * [Sanitize database output](https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet#RULE_.236_-_Sanitize_HTML_Markup_with_a_Library_Designed_for_the_Job)
 * [Query Parameterization](https://www.owasp.org/index.php/Query_Parameterization_Cheat_Sheet)
@@ -24,7 +24,8 @@ To cite OWASP, tableManager does the following:
 * [Anti-CSRF Nonces](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet)
 
 ## Requirements
-*  MySQL 5.02 or greater for [INFORMATION_SCHEMA](https://dev.mysql.com/doc/refman/5.7/en/information-schema.html)  support
+
+*  MySQL 5.02 or greater for [INFORMATION_SCHEMA](https://dev.mysql.com/doc/refman/5.7/en/information-schema.html) support
 *  PHP 5.1 or greater for [PDO](http://php.net/manual/en/pdo.installation.php) support
 
 Optional:
@@ -34,7 +35,7 @@ Optional:
 
 ## Examples
 
-The example images shown here are taken from the ``examples`` directory which has a functional PHP app using the ``tableManager`` class:
+The example images shown here are taken from the ``examples`` directory which has a working PHP app using the ``tableManager`` class:
 
 ### List Rows
 
@@ -52,48 +53,46 @@ Dynamic edit form based on table schema including error handling:
 
 While you're welcome to use code from the examples area, the tl;dr 
 is to [download the latest release](https://github.com/Packet-Clearing-House/tableManager/releases/latest) and 
-extract the ``tableManager.php`` file.  See "Methods" below for how to use.
+extract the ``tableManager.php`` file. See "Methods" below for how to use.
 
-Please note that all ``tableManager`` calls may throw an error, including the constructor.  Be sure to 
+Please note that all ``tableManager`` calls may throw an exception, including the constructor. Be sure to 
 wrap all your calls in a ``try{}catch(Exception $e){}``
 
 ## Methods
 
-This is the most simple calls to the methods.  See the [examples](https://github.com/Packet-Clearing-House/tableManager/tree/add-examples/examples) section and [phpdocs](https://github.com/Packet-Clearing-House/tableManager/tree/add-examples/phpdoc) for details on all calls.
+These are the most simple calls to the methods. See the [examples](https://github.com/Packet-Clearing-House/tableManager/tree/add-examples/examples) section and [phpdocs](https://github.com/Packet-Clearing-House/tableManager/tree/add-examples/phpdoc) for details on all calls.
 
-You need to instantiate the class with valid parameters to set up a database handle. TYPE and PORT default 
+Instantiate the class with valid parameters to set up a database handle. TYPE and PORT default 
 to 'mysql' and 3306 respectively: 
 
 ```php
 $tm = new tableManager(DB_SERVER, DB_USER, DB_PASS, DATABASE, TABLE);
 ```
 
-To get all the rows from a table use the ``getRowsFromTable()`` method.  This will default to the table 
-you passed into the constructor
+To get all the rows from a table use ``getRowsFromTable()``. This defaults to the table 
+passed into the constructor
 
 ```php
 $rowsArray = $tm->getRowsFromTable();
 ```
-
-To show the rows you just retrieved, call ``getHtmlFromRows()`` and pass in the rows 
-from ``getRowsFromTable()`` as well as the URI where to edit a row.  The second parameter will 
-depend on your implementation, but the ID of the row will be appended to a query string.  
+To show the rows you just retrieved use ``getHtmlFromRows()`` and pass in the rows 
+from ``getRowsFromTable()`` as well as the URI for editing a row. The second parameter will 
+depend on your implementation, but the ID of the row will be appended to a query string. 
 It's handy to use the ``$tm->table`` member variable here:
 
 ```php
 print $tm->getHtmlFromRows($rowsArray, "/edit?table={$tm->table}&id=");
 ```
-
-To show the create form  (also the edit form) for a table us ``getAddEditHtml()``.  Pass 
+To show the create form  (also the edit form) for a table use ``getAddEditHtml()``. Pass 
 in ``null``, ``add`` and the action for adding a row:
 
 ```php
 print $tm->getAddEditHtml(null, 'add', "/save?table={$this->table}");
 ```
 
-Note - The ``getAddEditHtml()`` sets a cookie. Please be aware of this if you're not expecting it!
+Note - ``getAddEditHtml()`` sets a cookie.
 
-Or, use ``getRowFromTable()`` to prefetch a row when you're editing a row.  This will pre-
+Or, use ``getRowFromTable()`` to prefetch a row when you're editing a row. This will pre-
 populate the form with the data from ``$row``:
 
 ```php
@@ -102,7 +101,7 @@ print $tm->getAddEditHtml($row, 'edit', "/save?table={$this->table}");
 ```
 
 To delete, update or add a row, use the following methods which assume you're posting using 
-the form from ``getAddEditHtml()`` which passes the ``tm_key_action`` member variable value with any submitted form:
+the form from ``getAddEditHtml()`` which passes the ``tm_key_action`` member variable value on submit:
 
 ```php
 $action = $tm->tm_key . '_action';
@@ -119,18 +118,16 @@ if ($_POST[$action] == 'delete') {
 
 Pull requests are always welcome! 
 
-Please ensure your code has no warnings in the error log.  Also, do as I do, which is: 
+Please ensure your code has no warnings in the error log. Also, do as I do: 
 
-1. ``cd``ing into the ``examples`` directory 
-1. running a web server via ``php -S  localhost:8000``
-1. cut a new branch for my changes
+1. ``cd`` into the ``examples`` directory 
+1. run a web server via ``php -S  localhost:8000``
+1. cut a new branch for your changes
 1. edit ``tableManager.php`` and ensure there's a working example which tests my change
-1. update readme.md if needed
-1. opening a pull request for my change
+1. update README.md if needed
+1. open a pull request for your change
 1. code review/QA pull request
 1. merge to master
-
-
 
 ## Release history
 
