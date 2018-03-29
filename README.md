@@ -131,7 +131,8 @@ Please ensure your code has no warnings in the error log. Also, do as I do:
 
 ## Release history
 
-* 1.3.1 - June 6th - Fix empty check per [#11](https://github.com/Packet-Clearing-House/tableManager/issues/11)
+* 1.4 - Mar 29th, 2018 - Add filter on getRowsFromTable() [#14](https://github.com/Packet-Clearing-House/tableManager/issues/14)
+* 1.3.1 - June 6th, 2017 - Fix empty check per [#11](https://github.com/Packet-Clearing-House/tableManager/issues/11)
 * 1.3 - Apr 11th, 2017 - Update security docs per [#5](https://github.com/Packet-Clearing-House/tableManager/issues/5), add way to do development with non-ssl per [#6](https://github.com/Packet-Clearing-House/tableManager/issues/6), add sort to enum/drop downs per [#7](https://github.com/Packet-Clearing-House/tableManager/issues/7)
 * 1.2 - Mar 18th, 2017 - Add protection against [CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF))
 * 1.1 - Mar 16th, 2017 - Add Examples & phpDocs, fixed minor bug in edit form CSS
