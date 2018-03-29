@@ -92,7 +92,8 @@ class tableManager {
      * @param array $rowsToFetchArray huh - i guess this is columns or fields to fetch  - only fetch these
      * @return array of results - will be an empty array if invalid params passed
      */
-    public function getRowsFromTable($table = null, $orderBy = null, $start = 0, $offset = 50, $rowsToFetchArray = array()){
+    public function getRowsFromTable($table = null, $orderBy = null, $start = 0, $offset = 50,
+                 $rowsToFetchArray = array(), $filterKey = null, $filterValue = null){
         if ($table == null){
             $table = $this->table;
         }
@@ -108,15 +109,25 @@ class tableManager {
             } else {
                 $rowsToFetch = '*';
             }
+            if ($filterKey != null && $filterValue != null && $this->validateTableColumns(array($filterKey))){
+                $whereSql = ' WHERE ' . $filterKey . ' = :filterValue ';
+                $bindWhere = true;
+            } else {
+                $whereSql = '';
+                $bindWhere = false;
+            }
             if ($orderBy != null && $this->validateTableColumns(array($orderBy))){
                 $orderBySql = " ORDER BY $orderBy ASC";
             } else {
                 $orderBySql = " ";
             }
-            $queryString = "SELECT $rowsToFetch FROM $table $orderBySql  LIMIT :start, :offset";
+            $queryString = "SELECT $rowsToFetch FROM $table $whereSql $orderBySql  LIMIT :start, :offset";
             $query = $this->db->prepare($queryString);
             $query->bindValue(':start', $start, PDO::PARAM_INT);
             $query->bindValue(':offset', $offset, PDO::PARAM_INT);
+            if ($bindWhere){
+               $query->bindValue(':filterValue', $filterValue, PDO::PARAM_STR);
+            }
             $query->execute();
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
@@ -447,6 +458,7 @@ class tableManager {
                 $html .= "<select name='$colName' value='$value' id='$colName' class='form-control $primaryClass' 
                     $requiredHtml $kvPairHtml>\n";
                 asort($columnInfoArray['SIMPLE_VALUES']);
+                $html .= "<option value='' class='empty-select'><em>Choose One</em></option>\n";
                 foreach ($columnInfoArray['SIMPLE_VALUES'] as $key => $option){
                     $selected = '';
                     if ($key == $value){
