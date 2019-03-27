@@ -140,8 +140,9 @@ Please ensure your code has no warnings in the error log. Also, do as I do:
 
 If you need to install the ``sample.sql`` file so the examples work, ``cd`` into the examples directory:
 
-1. It's assumed you're using a localhost instance of mysql that uses passwordless root access.  If so, run this:  ``mysql -u root < sample.sql``. If you need to specify a server or a password, do so accordingly with ``-h SERVER`` and ``-p`` respectively.
-1. Copy the ``config.dist.php`` to ``config.php``. If you used different credentials than the default, update this file to have the correct entries.
+1. It's assumed you're using a localhost instance of mysql that uses passwordless root access.  If so, run this:  ``mysql -u root < sample.sql`` (To specify a server use  ``-h SERVER`` and to specify a password use ``-p``).
+1. Copy the ``config.dist.php`` to ``config.php``. 
+1. OPTIONAL - If you used different credentials than the default, update ``config.php`` file to have the correct entries.
 
 If you've added a new method or changed the PhpDoc for an existing method, update the ``phpdoc`` folder by:
 
