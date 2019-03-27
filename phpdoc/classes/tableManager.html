@@ -136,10 +136,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-690584650"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-422075637"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-690584650" class="accordion-body collapse in">
+            <div id="namespace-422075637" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -197,6 +197,7 @@ all calls in try/catch.</p>
                         <section class="row-fluid public">
                             <section class="span4">
                                                                     <a href="../classes/tableManager.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/tableManager.html#method_setFieldLink" class="">setFieldLink()</a><br />
                                                                     <a href="../classes/tableManager.html#method_getRowsFromTable" class="">getRowsFromTable()</a><br />
                                                                     <a href="../classes/tableManager.html#method_getRowFromTable" class="">getRowFromTable()</a><br />
                                                                     <a href="../classes/tableManager.html#method_delete" class="">delete()</a><br />
@@ -207,6 +208,7 @@ all calls in try/catch.</p>
                                                                     <a href="../classes/tableManager.html#method_getHtmlRowsHead" class="">getHtmlRowsHead()</a><br />
                                                                     <a href="../classes/tableManager.html#method_getAddEditHtml" class="">getAddEditHtml()</a><br />
                                                                     <a href="../classes/tableManager.html#method_valueExists" class="">valueExists()</a><br />
+                                                                    <a href="../classes/tableManager.html#method_writeNonceCookie" class="">writeNonceCookie()</a><br />
                                                             </section>
                             <section class="span4">
                                                                     <a href="../classes/tableManager.html#property_db" class="">$db</a><br />
@@ -218,6 +220,9 @@ all calls in try/catch.</p>
                                                                     <a href="../classes/tableManager.html#property_port" class="">$port</a><br />
                                                                     <a href="../classes/tableManager.html#property_schema" class="">$schema</a><br />
                                                                     <a href="../classes/tableManager.html#property_table" class="">$table</a><br />
+                                                                    <a href="../classes/tableManager.html#property_tm_key" class="">$tm_key</a><br />
+                                                                    <a href="../classes/tableManager.html#property_nonceKey" class="">$nonceKey</a><br />
+                                                                    <a href="../classes/tableManager.html#property_fieldLinks" class="">$fieldLinks</a><br />
                                                             </section>
                             <section class="span4">
                                                                     <em>No constants found</em>
@@ -247,6 +252,9 @@ all calls in try/catch.</p>
                                                                     <a href="../classes/tableManager.html#method_validateTableColumns" class="">validateTableColumns()</a><br />
                                                                     <a href="../classes/tableManager.html#method_cleanse" class="">cleanse()</a><br />
                                                                     <a href="../classes/tableManager.html#method_getDbHandle" class="">getDbHandle()</a><br />
+                                                                    <a href="../classes/tableManager.html#method_getRandomId" class="">getRandomId()</a><br />
+                                                                    <a href="../classes/tableManager.html#method_validNonce" class="">validNonce()</a><br />
+                                                                    <a href="../classes/tableManager.html#method_getNonceFormInput" class="">getNonceFormInput()</a><br />
                                                             </section>
                             <section class="span4">
                                                                     <em>No private properties found</em>
@@ -507,6 +515,78 @@ all calls in try/catch.</p>
         </aside>
     </div>
 
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_tm_key" name="property_tm_key" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$tm_key</h3>
+                <pre class="signature">$tm_key : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; tm ID for internal use                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_nonceKey" name="property_nonceKey" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$nonceKey</h3>
+                <pre class="signature">$nonceKey : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; key to ID the nonce in cookies and posts                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_fieldLinks" name="property_fieldLinks" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$fieldLinks</h3>
+                <pre class="signature">$fieldLinks : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; array holding key of field name and value of URL to wrap field in                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
                                                             
                                     <a id="methods" name="methods"></a>
             <div class="row-fluid">
@@ -585,11 +665,53 @@ all calls in try/catch.</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_setFieldLink" name="method_setFieldLink" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setFieldLink()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setFieldLink(string  <span class="argument">$url = null</span>, string  <span class="argument">$field = null</span>) : boolean</pre>
+                <p><em>Set the URL to wrap a field in when rendering output in getRowsFromTable()</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url </td>
+                                <td><p>url to wrap around field, will output <a href="{$url}{$field}">{$field}</a></p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$field </td>
+                                <td><p>name of field to wrap</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>of true when set, false if fialed to set</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_getRowsFromTable" name="method_getRowsFromTable" class="anchor"></a>
             <article class="method">
                 <h3 class="public ">getRowsFromTable()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getRowsFromTable(string  <span class="argument">$table = null</span>, string  <span class="argument">$orderBy = null</span>, integer  <span class="argument">$start</span>, integer  <span class="argument">$offset = 50</span>, array  <span class="argument">$rowsToFetchArray = array()</span>) : array</pre>
+                <pre class="signature" style="margin-right: 54px;">getRowsFromTable(string  <span class="argument">$table = null</span>, string  <span class="argument">$orderBy = null</span>, integer  <span class="argument">$start</span>, integer  <span class="argument">$offset = 50</span>, array  <span class="argument">$rowsToFetchArray = array()</span>, string  <span class="argument">$filterKey = null</span>, string  <span class="argument">$filterValue = null</span>) : array</pre>
                 <p><em>Retrieves a associative multi-dimensional array.  Good for passing into $this-&gt;getHtmlFromRows()</em></p>
                 
 
@@ -619,6 +741,16 @@ all calls in try/catch.</p>
                                 <td>array</td>
                                 <td>$rowsToFetchArray </td>
                                 <td><p>huh - i guess this is columns or fields to fetch  - only fetch these</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$filterKey </td>
+                                <td><p>filter by this key</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$filterValue </td>
+                                <td><p>filter by this value</p></td>
                             </tr>
                                             </table>
                 
@@ -959,9 +1091,9 @@ to craft edit links on first column</p></td>
             <article class="method">
                 <h3 class="public ">getAddEditHtml()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getAddEditHtml(array  <span class="argument">$rowData = array()</span>, string  <span class="argument">$action = &#039;edit&#039;</span>, null  <span class="argument">$actionUrl = null</span>, boolean  <span class="argument">$tableKey = false</span>, array  <span class="argument">$rowsLabels = array()</span>, array  <span class="argument">$customEditArray = array()</span>, string  <span class="argument">$keyExistsUrl = null</span>, array  <span class="argument">$customOrder = array()</span>) : string</pre>
+                <pre class="signature" style="margin-right: 54px;">getAddEditHtml(array  <span class="argument">$rowData = array()</span>, string  <span class="argument">$action = &#039;edit&#039;</span>, null  <span class="argument">$actionUrl = null</span>, boolean  <span class="argument">$tableKey = false</span>, array  <span class="argument">$rowsLabels = array()</span>, array  <span class="argument">$customEditArray = array()</span>, string  <span class="argument">$keyExistsUrl = null</span>, array  <span class="argument">$customOrder = array()</span>, boolean  <span class="argument">$secureCookie = true</span>) : string</pre>
                 <p><em>Get the HTML to render an add or edit form</em></p>
-                
+                <p>NOTE: This function sets a cookie to fight CSRF (<a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF">https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF</a>))</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -1008,6 +1140,11 @@ $customEditArray['lookup'][COLUMN_NAME] = associative array // force input to be
                                 <td>array</td>
                                 <td>$customOrder </td>
                                 <td><p>multi-dimensional array based off $this-&gt;schema()</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$secureCookie </td>
+                                <td><p>write cookie so that only https can retrieve it</p></td>
                             </tr>
                                             </table>
                 
@@ -1056,6 +1193,52 @@ $customEditArray['lookup'][COLUMN_NAME] = associative array // force input to be
                 
                                     <h4>Returns</h4>
                     boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_writeNonceCookie" name="method_writeNonceCookie" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">writeNonceCookie()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">writeNonceCookie(  <span class="argument">$nonce</span>,   <span class="argument">$secureCookie = true</span>) : boolean</pre>
+                <p><em>standard way to write nonce to cookie valid for 5 minutes. we write
+the key of the cookie as &quot;NONCE_KEY + $nonce&quot; so we donate invalidate
+multiple instances of the same form in the same browser. should be checked
+with isFromNonce()</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$nonce </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$secureCookie </td>
+                                <td><p>boolean defaults to true, of whether to write cookies securely (https only). Only set this
+to false in development, <em>never</em> in production!!</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>result of setcookie()</p>
                                     				
                             </article>
         </div>
@@ -1455,6 +1638,125 @@ $customEditArray['lookup'][COLUMN_NAME] = associative array // force input to be
         </aside>
     </div>
 
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRandomId" name="method_getRandomId" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getRandomId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRandomId(integer  <span class="argument">$length = 40</span>) : string</pre>
+                <p><em>Generate a random ID - good for use in in a session cookie or a URL parameter
+in password reset</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$length </td>
+                                <td><p>defaults to 50 - length of random ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>50 chars of openssl_random_pseudo_bytes()</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_validNonce" name="method_validNonce" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">validNonce()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">validNonce(array  <span class="argument">$cookie = null</span>, array  <span class="argument">$post = null</span>) : boolean</pre>
+                <p><em>look in the passed POST and COOKIE arrays for the $this-&gt;nonceKey and make sure they match.</em></p>
+                <p>value checked is in cookie array is $_COOKIE[$this-&gt;nonceKey + $nonce] where we derive the
+$nonce from $POST[$this-&gt;nonceKey]. a little cyclical, but allows for N instances of the
+same form in the same browser without inadvertent invalidation. should be written
+with writeNonceCookie()</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$cookie </td>
+                                <td><p>defaults to $_COOKIE</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$post </td>
+                                <td><p>defaults to $_POST</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getNonceFormInput" name="method_getNonceFormInput" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getNonceFormInput()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getNonceFormInput(string  <span class="argument">$nonce</span>) : string</pre>
+                <p><em>get the nonce HTML based on the string input</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$nonce </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>of HTML for form</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
                                     </div>
     </section>
 
@@ -1504,7 +1806,7 @@ $customEditArray['lookup'][COLUMN_NAME] = associative array // force input to be
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 15th, 2017 at 21:30.
+                    on March 27th, 2019 at 21:59.
                 </section>
             </section>
         </section>

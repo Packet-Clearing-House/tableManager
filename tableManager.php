@@ -18,6 +18,7 @@
  *
  * Required:
  *      - PHP 5.1 or greater for PDO support http://php.net/manual/en/pdo.installation.php
+ *      - PHP mysql extension (php-mysql)
  *      - jQuery http://jquery.com/
  *
  * Optional:
@@ -45,8 +46,12 @@ class tableManager {
     var $schema;
     /** @var string table to use, bust existing in db */
     var $table;
+    /** @var string tm ID for internal use */
+    var $tm_key;
     /** @var string key to ID the nonce in cookies and posts */
     var $nonceKey;
+    /** @var array array holding key of field name and value of URL to wrap field in */
+    var $fieldLinks;
 
     /**
      * tableManager constructor - establishes a connection to a database and a specific table
@@ -68,6 +73,7 @@ class tableManager {
         $this->type = $type;
         $this->port = $port;
         $this->username = $username;
+        $this->fieldLinks = array();
         $this->db = $this->getDbHandle($this->database);
         $this->mysqlDb = $this->getDbHandle('information_schema');
         // use something that hopefully won't ever exist as a field name in a db ;)
@@ -84,12 +90,28 @@ class tableManager {
     }
 
     /**
+     * Set the URL to wrap a field in when rendering output in getRowsFromTable()
+     * @param string $url url to wrap around field, will output <a href="{$url}{$field}">{$field}</a>
+     * @param string $field name of field to wrap
+     * @return boolean of true when set, false if fialed to set
+     */
+    public function setFieldLink($url = null, $field = null){
+        if (!empty($url) && !empty($field)){
+            $this->fieldLinks[$field] = $url;
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Retrieves a associative multi-dimensional array.  Good for passing into $this->getHtmlFromRows()
      * @param string $table defaults to table the class was instantiated with
      * @param string $orderBy defaults to NULL (no sort). field to do initial sort by.
      * @param int $start defaults to 0. row to start from
      * @param int $offset defaults to 50, how many rows from $start to select
      * @param array $rowsToFetchArray huh - i guess this is columns or fields to fetch  - only fetch these
+     * @param string $filterKey filter by this key
+     * @param string $filterValue filter by this value
      * @return array of results - will be an empty array if invalid params passed
      */
     public function getRowsFromTable($table = null, $orderBy = null, $start = 0, $offset = 50,
@@ -306,7 +328,11 @@ class tableManager {
                     }
                     $columnValue = "<a href='{$link}{$row[$tableKey]}'>$linkColumnValue</a>";
                 } elseif (!empty($row[$key])) {
-                    $columnValue =  $this->cleanse($row[$key]);
+                    $columnValue = $this->cleanse($row[$key]);
+                    if (isset($this->fieldLinks[$key])){
+                        $url = $this->fieldLinks[$key];
+                        $columnValue = "<a href='{$url}{$columnValue}'>{$columnValue}</a>";
+                    }
                 } else {
                     $columnValue =  '<em>Empty</em>';
                 }
@@ -353,6 +379,7 @@ class tableManager {
      *      $customEditArray['lookup'][COLUMN_NAME] = associative array // force input to be an enum with these values
      * @param string $keyExistsUrl AJAX endpoint which will return array(true) or array(false) via $this->valueExists()
      * @param array $customOrder multi-dimensional array based off $this->schema()
+     * @param bool $secureCookie write cookie so that only https can retrieve it
      * @return string HTML of edit form
      */
     public function getAddEditHtml($rowData = array(),  $action = 'edit' , $actionUrl = null,
@@ -784,8 +811,8 @@ class tableManager {
      * $nonce from $POST[$this->nonceKey]. a little cyclical, but allows for N instances of the
      * same form in the same browser without inadvertent invalidation. should be written
      * with writeNonceCookie()
-     * @param array $post defaults to $_POST
      * @param array $cookie defaults to $_COOKIE
+     * @param array $post defaults to $_POST
      * @return bool
      */
     private function validNonce($cookie = null, $post = null){
@@ -831,6 +858,12 @@ class tableManager {
         return setcookie($this->nonceKey . $nonce, $nonce, time() + 300, "/", $domain, $secure, $http_only);
     }
 
+    
+    /**
+     * get the nonce HTML based on the string input
+     * @param string $nonce
+     * @return string of HTML for form
+     */
     private function getNonceFormInput($nonce){
         $name = $this->nonceKey ;
         return "<input type='hidden' value='$nonce' name='$name' />\n";
