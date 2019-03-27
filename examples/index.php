@@ -17,6 +17,8 @@
     <li><a href="list_rows.php">List Rows</a> - Simplest way to list the first 50 rows in a table.</li>
     <li><a href="list_rows_with_links.php">List Rows w/ Edit Links</a> - List all rows, remove the leading
         "id" column</li>
+    <li><a href="list_rows_with_links_moar_links.php">List Rows w/ Edit Links & Custom Links</a> - List all rows, remove the leading
+        "id" column and link to another site using <code>showFieldLink()</code></li>
     <li><a href="edit.php">Add Row</a> - Using field types, automatically generate the edit form.</li>
     <li><a href="edit.php?id=1">Edit Row</a> - Using field types, automatically generate the edit form
         pre-polated with ID #1's data.</li>

@@ -27,6 +27,7 @@ Following OWASP best practices, tableManager does the following:
 
 *  MySQL 5.02 or greater for [INFORMATION_SCHEMA](https://dev.mysql.com/doc/refman/5.7/en/information-schema.html) support
 *  PHP 5.1 or greater for [PDO](http://php.net/manual/en/pdo.installation.php) support
+*  PHP mysql extension (``php-mysql``)
 
 Optional:
 * [stupidtable.js](https://joequery.github.io/Stupid-Table-Plugin/) 
@@ -83,6 +84,13 @@ It's handy to use the ``$tm->table`` member variable here:
 ```php
 print $tm->getHtmlFromRows($rowsArray, "/edit?table={$tm->table}&id=");
 ```
+
+If have an column that you want show as a link, you can use the ``$tm->setFieldLink`` method to specify the URL and filed you want to link:
+
+```php
+$tm->setFieldLink('https://sample.com/id/', 'field_name');
+```
+
 To show the create form  (also the edit form) for a table use ``getAddEditHtml()``. Pass 
 in ``null``, ``add`` and the action for adding a row:
 
@@ -116,22 +124,37 @@ if ($_POST[$action] == 'delete') {
 
 ## Development
 
-Pull requests are always welcome! 
+Pull requests are always welcome!  
 
 Please ensure your code has no warnings in the error log. Also, do as I do: 
 
-1. ``cd`` into the ``examples`` directory 
+1. Make sure the ``sample.sql`` is loaded and configed per below 
+1. ``cd`` into the ``examples`` directory
 1. run a web server via ``php -S  localhost:8000``
 1. cut a new branch for your changes
 1. edit ``tableManager.php`` and ensure there's a working example which tests my change
 1. update README.md if needed
-1. open a pull request for your change
-1. code review/QA pull request
-1. merge to master
+1. open a pull request (PR) for your change
+1. code review/QA the PR
+1. request PR be merged upstream
+
+If you need to install the ``sample.sql`` file so the examples work, ``cd`` into the examples directory:
+
+1. It's assumed you're using a localhost instance of mysql that uses passwordless root access.  If so, run this:  ``mysql -u root < sample.sql``. If you need to specify a server or a password, do so accordingly with ``-h SERVER`` and ``-p`` respectively.
+1. Copy the ``config.dist.php`` to ``config.php``. If you used different credentials than the default, update this file to have the correct entries.
+
+If you've added a new method or changed the PhpDoc for an existing method, update the ``phpdoc`` folder by:
+
+1. Installing [phpDocumentor](https://www.phpdoc.org/) (Note that ``pear install phpdoc/phpDocumentor`` install failed to work and I had to use the .phar biniary)
+1. In the ``tableManager`` directory run phpdoc like this: ``PATH_TO_PHAR~/phpDocumentor.phar run -f tableManager.php -t phpdoc``
+1. Ensure the resulting changes in the ``phpdoc`` folder make sense (IE we only expect one or two files to change, not everything ;). Ensure that there's no errors on the ``reports/errors.html`` page.
+
+If you're adding a new file to the ``examples`` pages and need to generate syntax highlighted HTML from your php, use [hilite.me](http://hilite.me/).
 
 ## Release history
 
-* 1.4 - Mar 29th, 2018 - Add filter on getRowsFromTable() [#14](https://github.com/Packet-Clearing-House/tableManager/issues/14)
+* 1.5 - Mar 27, 2019 - Add developer docs per [#17](https://github.com/Packet-Clearing-House/tableManager/issues/17), allow field hyperlinks via ``setFieldLink()`` per [#16](https://github.com/Packet-Clearing-House/tableManager/issues/16), preventitively file and close [#18](https://github.com/Packet-Clearing-House/tableManager/issues/18) (Error: Undefined class constant 'MYSQL_ATTR_INIT_COMMAND')
+* 1.4 - Mar 29th, 2018 - Add filter on ``getRowsFromTable()`` [#14](https://github.com/Packet-Clearing-House/tableManager/issues/14)
 * 1.3.1 - June 6th, 2017 - Fix empty check per [#11](https://github.com/Packet-Clearing-House/tableManager/issues/11)
 * 1.3 - Apr 11th, 2017 - Update security docs per [#5](https://github.com/Packet-Clearing-House/tableManager/issues/5), add way to do development with non-ssl per [#6](https://github.com/Packet-Clearing-House/tableManager/issues/6), add sort to enum/drop downs per [#7](https://github.com/Packet-Clearing-House/tableManager/issues/7)
 * 1.2 - Mar 18th, 2017 - Add protection against [CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF))
