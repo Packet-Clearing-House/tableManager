@@ -154,6 +154,7 @@ If you're adding a new file to the ``examples`` pages and need to generate synta
 
 ## Release history
 
+* 1.5.1 - Nov 15, 2019 - Fix exessive cleansing in `cleanseValuesAgainstSchema()` per [#20](https://github.com/Packet-Clearing-House/tableManager/issues/20)
 * 1.5 - Mar 27, 2019 - Add developer docs per [#17](https://github.com/Packet-Clearing-House/tableManager/issues/17), allow field hyperlinks via ``setFieldLink()`` per [#16](https://github.com/Packet-Clearing-House/tableManager/issues/16), preventitively file and close [#18](https://github.com/Packet-Clearing-House/tableManager/issues/18) (Error: Undefined class constant 'MYSQL_ATTR_INIT_COMMAND')
 * 1.4 - Mar 29th, 2018 - Add filter on ``getRowsFromTable()`` [#14](https://github.com/Packet-Clearing-House/tableManager/issues/14)
 * 1.3.1 - June 6th, 2017 - Fix empty check per [#11](https://github.com/Packet-Clearing-House/tableManager/issues/11)
