@@ -552,7 +552,7 @@ class tableManager {
         $cleanArray = array();
         foreach ($this->schema as $column){
             $key = $column['COLUMN_NAME'];
-            if (isset($values[$key])) {
+            if (array_key_exists($key, $values)) {
                 $cleanArray[$key] = $values[$key];
             }
         }
