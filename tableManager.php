@@ -3,7 +3,7 @@
  * Class tableManager
  *
  * @author mrjones@pch.net
- * @version 1.5.1
+ * @version 1.5.2
  * @copyright PCH, MIT License
  * @see https://github.com/Packet-Clearing-House/tableManager/
  */
@@ -115,7 +115,7 @@ class tableManager {
      * @return array of results - will be an empty array if invalid params passed
      */
     public function getRowsFromTable($table = null, $orderBy = null, $start = 0, $offset = 50,
-                 $rowsToFetchArray = array(), $filterKey = null, $filterValue = null){
+                                     $rowsToFetchArray = array(), $filterKey = null, $filterValue = null){
         if ($table == null){
             $table = $this->table;
         }
@@ -148,7 +148,7 @@ class tableManager {
             $query->bindValue(':start', $start, PDO::PARAM_INT);
             $query->bindValue(':offset', $offset, PDO::PARAM_INT);
             if ($bindWhere){
-               $query->bindValue(':filterValue', $filterValue, PDO::PARAM_STR);
+                $query->bindValue(':filterValue', $filterValue, PDO::PARAM_STR);
             }
             $query->execute();
             return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -478,7 +478,7 @@ class tableManager {
             } elseif ($colType == 'char') {
                 $html .= "<input name='$colName' value='$value' id='$colName' type='text'  
                     class='form-control $primaryClass' maxlength='{$columnInfoArray['SIMPLE_SIZE']}' $requiredHtml $kvPairHtml/>\n";
-            } elseif ($colType == 'int') {
+            } elseif ($colType == 'tinyint' || $colType == 'smallint' || $colType == 'int' || $colType == 'mediumint' || $colType == 'bigint') {
                 $html .= "<input name='$colName' value='$value' id='$colName' type='number' class='form-control $primaryClass'
                     maxlength='{$columnInfoArray['SIMPLE_SIZE']}' $requiredHtml $kvPairHtml/>\n";
             } elseif ($colType == 'enum') {
@@ -671,13 +671,14 @@ class tableManager {
         $query->execute();
         $schemaArray = $query->fetchAll(PDO::FETCH_ASSOC);
 
-//print '<pre>' . print_r($schemaArray,1) ."</pre>";
         foreach ($schemaArray as $key => $columnInfoArray){
             foreach ($columnInfoArray as $key2 => $value2){
                 $type = $columnInfoArray['DATA_TYPE'];
                 $COLUMN_TYPE = $columnInfoArray['COLUMN_TYPE'];
-//print "type: $type<br />";
-                if ($type == 'varchar' || $type == 'char' || $type == 'int' ) {
+                if ($type == 'varchar' || $type == 'char' || $type == 'tinyint' || $type == 'smallint' ||
+                    $type == 'int' || $type == 'mediumint' || $type == 'bigint') {
+                    // todo - ensure this is right for *int* per https://dev.mysql.com/doc/refman/5.7/en/integer-types.html and
+                    // also https://stackoverflow.com/a/3135854
                     $schemaArray[$key]['SIMPLE_SIZE'] = $this->getFieldMaxFromColumnType($COLUMN_TYPE);
                 }
                 if ($type == 'enum' ) {
@@ -858,7 +859,7 @@ class tableManager {
         return setcookie($this->nonceKey . $nonce, $nonce, time() + 300, "/", $domain, $secure, $http_only);
     }
 
-    
+
     /**
      * get the nonce HTML based on the string input
      * @param string $nonce
