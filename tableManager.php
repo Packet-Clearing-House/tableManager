@@ -3,7 +3,7 @@
  * Class tableManager
  *
  * @author mrjones@pch.net
- * @version 1.5.2
+ * @version 1.5.3
  * @copyright PCH, MIT License
  * @see https://github.com/Packet-Clearing-House/tableManager/
  */
@@ -475,6 +475,9 @@ class tableManager {
             } elseif ($colType == 'text') {
                 $html .= "<textarea name='$colName' id='$colName' class='form-control $primaryClass' maxlength='{$columnInfoArray['SIMPLE_SIZE']}' 
                     $requiredHtml $kvPairHtml/>$value</textarea>\n";
+            }  elseif ($colType == 'date') {
+                $html .= "<input name='$colName' value='$value' id='$colName' type='date'  class='form-control $primaryClass'
+                    $requiredHtml $kvPairHtml/>\n";
             } elseif ($colType == 'char') {
                 $html .= "<input name='$colName' value='$value' id='$colName' type='text'  
                     class='form-control $primaryClass' maxlength='{$columnInfoArray['SIMPLE_SIZE']}' $requiredHtml $kvPairHtml/>\n";
