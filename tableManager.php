@@ -52,6 +52,8 @@ class tableManager {
     var $nonceKey;
     /** @var array array holding key of field name and value of URL to wrap field in */
     var $fieldLinks;
+    /** @var PDO object handle to information_schema */
+    var $mysqlDb;
 
     /**
      * tableManager constructor - establishes a connection to a database and a specific table
@@ -64,7 +66,7 @@ class tableManager {
      * @param int string $port defaults to '3306'
      * @throws Exception if table name doesn't exist in database
      */
-    function __construct($host, $username, $password = '', $database, $table, $type = 'mysql', $port = '3306')
+    function __construct($host, $username, $password, $database, $table, $type = 'mysql', $port = '3306')
     {
         $this->host = $host;
         $this->username = $username;
@@ -538,7 +540,8 @@ class tableManager {
             $query->bindValue(':value', $value, PDO::PARAM_STR);
             $query->execute();
             $result = $query->fetch(PDO::FETCH_ASSOC);
-            if ($result['count'] === "0"){
+	    # use == rather than === because some versions return int and others string
+            if ($result['count'] == "0"){
                 return false;
             } else {
                 return true;
@@ -742,7 +745,8 @@ class tableManager {
         $query->bindValue(':database', $this->database, PDO::PARAM_STR);
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        if ($result[0]['count'] === "1") {
+	# use == rather than === because some versions return int and others string
+        if ($result[0]['count'] == "1") {
             return true;
         } else {
             return false;
@@ -764,7 +768,8 @@ class tableManager {
             $query->bindValue(':column', $column, PDO::PARAM_STR);
             $query->execute();
             $result = $query->fetchAll(PDO::FETCH_ASSOC);
-            if ($result[0]['count'] !== "1") {
+	    # use != rather than !== because some versions return int and others string
+            if ($result[0]['count'] != "1") {
                 return false;
             }
         }
